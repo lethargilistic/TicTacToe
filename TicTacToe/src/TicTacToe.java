@@ -1,12 +1,14 @@
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import java.awt.Component;
 import java.awt.GridLayout;
 
 public class TicTacToe extends JFrame
 {
-	JPanel p = new JPanel();
-	XOButton buttons[] = new XOButton[9];
+	private JPanel p = new JPanel();
+	private XOButton buttons[] = new XOButton[9];
 	
 	public TicTacToe()
 	{
@@ -23,7 +25,7 @@ public class TicTacToe extends JFrame
 		}
 		add(p);
 		
-		setVisible(true);
+		setVisible(true);	
 	}
 	
 	public static void main(String[] args)
