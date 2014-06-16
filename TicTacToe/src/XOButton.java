@@ -6,58 +6,97 @@ import java.awt.event.ActionEvent;
 
 public class XOButton extends JButton implements ActionListener
 {
-	private static boolean isPlayerOneTurn;
+	private static boolean isPlayerXTurn;		//true: X player's turn, false: Y player's turn. Needs to be known by all objects to dermine who is clicking.
+	private static int numClicks;				//How many of the cells that have been clicked. Static because all need to know status of the board.
 	
-	private ImageIcon X,O;
-	private byte choosePic;
+	private ImageIcon X,O;						//Data for the pictures marking player moves
+	private int whichPlayerClicked;			//Store which player clicked each object within each object.
 	/*
 	 * 0: nothing
 	 * 1: X
 	 * 2: O
 	*/
+	private int positionOnBoard; //1-3:first row, 2-6: second row, 7-9: third row (all left to right)
 	
-	public XOButton()
+	public XOButton(int positionOnBoard)
 	{
+		setIcon(null);
+		
 		X = new ImageIcon(this.getClass().getResource("x.png"));
 		O = new ImageIcon(this.getClass().getResource("o.png"));
 		
-		isPlayerOneTurn = true;
+		numClicks = 0;
+		isPlayerXTurn = true;
+		this.positionOnBoard = positionOnBoard;
 		
-		this.addActionListener(this);
+		addActionListener(this);
 	}
 
 	public void manageTurns()
-	{
-		if (isPlayerOneTurn)
+	{		
+		if (isPlayerXTurn)
 		{
-			choosePic = 1;
-			isPlayerOneTurn = false; //Move to Player Two's Turn next click
+			isPlayerXTurn = false; //Move to Player O's Turn next click
 		}
 		else
 		{
-			choosePic = 2;
-			isPlayerOneTurn = true; //Move to Player One 's Turn next click
+			isPlayerXTurn = true; //Move to Player X's Turn next click
+		}
+	}
+	
+	public int testWinConditions(ImageIcon X, ImageIcon O)
+	{
+		return TicTacToe.testWinConditions(X, O);
+	}
+	
+	public int getPlayer()
+	{
+		return whichPlayerClicked;
+	}
+	
+	public void endGame(int result)
+	{
+		switch(result)
+		{
+			case 0:
+				System.out.print("Cats game!");
+				break;
+			case 1:
+				System.out.print("X Wins!");
+				break;
+			case 2:
+				System.out.print("O Wins!");
+				break;
 		}
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		manageTurns();
-
-		switch(choosePic)
+		numClicks++;
+		
+		if (isPlayerXTurn)
 		{
-			case 0:
-				setIcon(null);
-				break;
-			case 1:
 				setIcon(X);
+				whichPlayerClicked = 1;
 				setEnabled(false);
-				break;
-			case 2:
-				setIcon(O);
-				setEnabled(false);
-				break;
 		}
+		else
+		{
+				setIcon(O);
+				whichPlayerClicked = 2;
+				setEnabled(false);
+		}
+		
+		int result = testWinConditions(X, O);
+		
+		if (result != 0 || numClicks == 9)
+		{
+			endGame(result);
+			//TODO: Show a pop-up that whoever won won
+			//TODO: Reset board.
+		}
+		
+		manageTurns();
 	}
 }
