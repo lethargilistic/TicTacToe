@@ -16,9 +16,8 @@ public class XOButton extends JButton implements ActionListener
 	 * 1: X
 	 * 2: O
 	*/
-	private int positionOnBoard; //1-3:first row, 2-6: second row, 7-9: third row (all left to right)
 	
-	public XOButton(int positionOnBoard)
+	public XOButton()
 	{
 		setIcon(null);
 		
@@ -27,24 +26,49 @@ public class XOButton extends JButton implements ActionListener
 		
 		numClicks = 0;
 		isPlayerXTurn = true;
-		this.positionOnBoard = positionOnBoard;
 		
 		addActionListener(this);
 	}
 
+	private static void resetNumClicks()
+	{
+		numClicks = 0;
+	}
+
+	private void setTurn(boolean trueForPlayerX)
+	{
+		isPlayerXTurn = trueForPlayerX;
+	}
+	
+	//Parameterized Constructor
+	public XOButton(ImageIcon otherX, ImageIcon otherO, int otherWhichPlayerClicked)
+	{
+		X = new ImageIcon(otherX.getImage());
+		O = new ImageIcon(otherO.getImage());
+		
+		whichPlayerClicked = otherWhichPlayerClicked; 
+		
+		addActionListener(this);
+	}
+	
+	public XOButton setWhichPlayerClicked(int newWhichPlayerClicked)
+	{
+		return new XOButton(X, O, newWhichPlayerClicked);
+	}
+	
 	public void manageTurns()
 	{		
 		if (isPlayerXTurn)
 		{
-			isPlayerXTurn = false; //Move to Player O's Turn next click
+			setTurn(false); //Move to Player O's Turn next click
 		}
 		else
 		{
-			isPlayerXTurn = true; //Move to Player X's Turn next click
+			setTurn(true);  //Move to Player X's Turn next click
 		}
 	}
 	
-	public int getPlayer()
+	public int getWhichPlayerClicked()
 	{
 		return whichPlayerClicked;
 	}
@@ -71,11 +95,13 @@ public class XOButton extends JButton implements ActionListener
 		
 		if (result != 0 || numClicks == 9)
 		{
-			TicTacToe.endGame(result);
-			//TODO: Reset board.
-				//Set all ImageIcons to null and enable clicking
+			resetNumClicks();
+			setTurn(true);				//Make sure the next game starts with X as first player.
+			TicTacToe.endGame(result);	//A static method because all of the XOButtons have to be managed,
 		}
-		
-		manageTurns();
+		else
+		{
+			manageTurns();
+		}
 	}
 }

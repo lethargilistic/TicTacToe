@@ -9,7 +9,7 @@ public class TicTacToe extends JFrame
 {
 	private static XOButton buttons[] = new XOButton[9];
 	private static JOptionPane endGameMessage = new JOptionPane();
-	private JPanel p = new JPanel();
+	private static JPanel p = new JPanel();
 	
 	public TicTacToe()
 	{
@@ -21,7 +21,7 @@ public class TicTacToe extends JFrame
 		p.setLayout(new GridLayout(3,3));
 		for (int nextButton = 0; nextButton < 9; nextButton++)
 		{
-			buttons[nextButton] = new XOButton(nextButton);
+			buttons[nextButton] = new XOButton();
 			p.add(buttons[nextButton]);
 		}
 		add(p);
@@ -103,7 +103,7 @@ public class TicTacToe extends JFrame
 		{
 			for(int colIndex = 0; colIndex < testArray[rowIndex].length; colIndex++)
 			{
-				testArray[rowIndex][colIndex] = buttons[cellTransferring].getPlayer();
+				testArray[rowIndex][colIndex] = buttons[cellTransferring].getWhichPlayerClicked();
 				cellTransferring++;
 			}
 		}
@@ -124,6 +124,20 @@ public class TicTacToe extends JFrame
 			case 2:
 				JOptionPane.showMessageDialog(endGameMessage, "O Wins!");
 				break;
+		}
+		
+		resetBoard();
+	}
+	
+	public static void resetBoard()
+	{
+		for (int nextButton = 0; nextButton < buttons.length; nextButton++)
+		{
+			buttons[nextButton].setIcon(null);
+			buttons[nextButton].setEnabled(true);
+			p.remove(buttons[nextButton]);
+			buttons[nextButton] = buttons[nextButton].setWhichPlayerClicked(0);
+			p.add(buttons[nextButton]);
 		}
 	}
 }
