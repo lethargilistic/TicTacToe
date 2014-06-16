@@ -44,30 +44,9 @@ public class XOButton extends JButton implements ActionListener
 		}
 	}
 	
-	public int testWinConditions(ImageIcon X, ImageIcon O)
-	{
-		return TicTacToe.testWinConditions(X, O);
-	}
-	
 	public int getPlayer()
 	{
 		return whichPlayerClicked;
-	}
-	
-	public void endGame(int result)
-	{
-		switch(result)
-		{
-			case 0:
-				System.out.print("Cats game!");
-				break;
-			case 1:
-				System.out.print("X Wins!");
-				break;
-			case 2:
-				System.out.print("O Wins!");
-				break;
-		}
 	}
 	
 	@Override
@@ -88,13 +67,13 @@ public class XOButton extends JButton implements ActionListener
 				setEnabled(false);
 		}
 		
-		int result = testWinConditions(X, O);
+		int result = TicTacToe.testWinConditions(X, O);
 		
 		if (result != 0 || numClicks == 9)
 		{
-			endGame(result);
-			//TODO: Show a pop-up that whoever won won
+			TicTacToe.endGame(result);
 			//TODO: Reset board.
+				//Set all ImageIcons to null and enable clicking
 		}
 		
 		manageTurns();

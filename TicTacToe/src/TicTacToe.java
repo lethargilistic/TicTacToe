@@ -1,12 +1,14 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import java.awt.GridLayout;
 
 public class TicTacToe extends JFrame
 {
 	private static XOButton buttons[] = new XOButton[9];
+	private static JOptionPane endGameMessage = new JOptionPane();
 	private JPanel p = new JPanel();
 	
 	public TicTacToe()
@@ -107,5 +109,21 @@ public class TicTacToe extends JFrame
 		}
 		
 		return testArray;
+	}
+	
+	public static void endGame(int result)
+	{
+		switch(result)
+		{
+			case 0:
+				JOptionPane.showMessageDialog(endGameMessage, "Cats' Game!");
+				break;
+			case 1:
+				JOptionPane.showMessageDialog(endGameMessage, "X Wins!");
+				break;
+			case 2:
+				JOptionPane.showMessageDialog(endGameMessage, "O Wins!");
+				break;
+		}
 	}
 }
