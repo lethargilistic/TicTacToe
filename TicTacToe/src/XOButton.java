@@ -9,7 +9,7 @@ public class XOButton extends JButton implements ActionListener
 	private static boolean isPlayerXTurn;		//true: X player's turn, false: Y player's turn. Needs to be known by all objects to dermine who is clicking.
 	private static int numClicks;				//How many of the cells that have been clicked. Static because all need to know status of the board.
 	
-	private ImageIcon X,O;						//Data for the pictures marking player moves
+	private ImageIcon X,O, winX, winO;			//Data for the pictures marking player moves
 	private int whichPlayerClicked;			//Store which player clicked each object within each object.
 	/*
 	 * 0: nothing
@@ -23,6 +23,8 @@ public class XOButton extends JButton implements ActionListener
 		
 		X = new ImageIcon(this.getClass().getResource("x.png"));
 		O = new ImageIcon(this.getClass().getResource("o.png"));
+		winX = new ImageIcon(this.getClass().getResource("winX.png"));
+		winO = new ImageIcon(this.getClass().getResource("winO.png"));
 		
 		numClicks = 0;
 		isPlayerXTurn = true;

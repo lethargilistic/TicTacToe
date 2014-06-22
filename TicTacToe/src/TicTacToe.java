@@ -10,6 +10,8 @@ public class TicTacToe extends JFrame
 	private static XOButton buttons[] = new XOButton[9];
 	private static JOptionPane endGameMessage = new JOptionPane();
 	private static JPanel p = new JPanel();
+
+	
 	
 	public TicTacToe()
 	{
