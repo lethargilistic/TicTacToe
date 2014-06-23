@@ -23,8 +23,6 @@ public class XOButton extends JButton implements ActionListener
 		
 		X = new ImageIcon(this.getClass().getResource("x.png"));
 		O = new ImageIcon(this.getClass().getResource("o.png"));
-		winX = new ImageIcon(this.getClass().getResource("winX.png"));
-		winO = new ImageIcon(this.getClass().getResource("winO.png"));
 		
 		numClicks = 0;
 		isPlayerXTurn = true;
